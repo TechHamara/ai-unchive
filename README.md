@@ -7,9 +7,9 @@ With Unchive, you can view your projects and analyze extensions directly in your
 
 ## Features
 - **Project Viewer (.aia)**: View screens, components, assets, and block logic.
-- **Extension Analyzer (.aix)**: Inspect extension methods, events, and properties with auto-generated blocks.
-- **Documentation Generator**: Generate and export Markdown documentation for your extensions.
-- **Block Export**: Download high-quality PNG images of blocks with transparent backgrounds.
+- **Extension Analyzer (.aix)**: Inspect extension methods, events, and properties with auto-generated blocks.(Beta version)
+- **Documentation Generator**: Generate and export Markdown documentation for your extensions.(Beta version)
+- **Block Export**: Download high-quality PNG images of separated blocks with transparent backgrounds.(Working on .aia upload)
 - **Dark Mode**: Switch between light and dark themes for comfortable viewing.
 - **Offline Capable**: Easy to set up and run locally.
 - **New Logo**: added new logo for unchive.
