@@ -1,6 +1,15 @@
 # ai-unchive
-An AIA-Viewer for Kodular and App Inventor, written in vanilla JavaScript!
-With Unchive, you can view your projects without having to log in to the Creator.
+A powerful **AIA Project Viewer** and **AIX Extension Analyzer** for Kodular and App Inventor, built with vanilla JavaScript!
+With Unchive, you can view your projects and analyze extensions directly in your browser without logging into any Creator.
+
+## Features
+- **Project Viewer (.aia)**: View screens, components, assets, and block logic.
+- **Extension Analyzer (.aix)**: Inspect extension methods, events, and properties with auto-generated blocks.
+- **Documentation Generator**: Generate and export Markdown documentation for your extensions.
+- **Block Export**: Download high-quality PNG images of blocks with transparent backgrounds.
+- **Dark Mode**: Switch between light and dark themes for comfortable viewing.
+- **Offline Capable**: Easy to set up and run locally.
+- **New Logo**: added new logo for unchive.
 
 ## Setting up Unchive on your device
 

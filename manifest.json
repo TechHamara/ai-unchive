@@ -1,0 +1,21 @@
+{
+  "name": "ai-unchive",
+  "short_name": "ai-unchive",
+  "description": "View App Inventor projects in your browser",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4527A0",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
