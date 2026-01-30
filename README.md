@@ -6,14 +6,18 @@ With Unchive, you can view your projects and analyze extensions directly in your
 [https://techhamara.github.io/ai-unchive/](https://techhamara.github.io/ai-unchive/)
 
 ## Features
-- **Project Viewer (.aia)**: View screens, components, assets, and block logic.
+- ✅ **Project Viewer (.aia)**: View screens, components, assets, and block logic.
 - **Extension Analyzer (.aix)**: Inspect extension methods, events, and properties with auto-generated blocks.(Beta version)
-- **Documentation Generator**: Generate and export Markdown documentation for your extensions.(Beta version)
-- **Block Export**: Download high-quality PNG images of separated blocks with transparent backgrounds.(Working on .aia upload)
-- **Dark Mode**: Switch between light and dark themes for comfortable viewing.
+- ✅ **Documentation Generator**: Generate and export Markdown documentation for your extensions.(Beta version)
+- ✅ **Block Export**: Download high-quality PNG images of separated blocks with transparent backgrounds.(Working on .aia upload)
+- ✅ **Dark Mode**: Switch between light and dark themes for comfortable viewing.
 - **Offline Capable**: Easy to set up and run locally.
-- **New Logo**: added new logo for unchive.
+- ✅ **New Logo**: added new logo for unchive.
+- ✅ **UI UX**: Added Responsive design Styles To Work Mobile and Desktop.
 
+<details>
+  <summary>Previous Setting but not Required</summary>
+  
 ## Setting up Unchive on your device
 
 ### Pre-requisites
@@ -32,8 +36,7 @@ With Unchive, you can view your projects and analyze extensions directly in your
  python setup.py serve
  ```
  5. Once set-up finishes, navigate to `localhost:8000` to access Unchive
- 
- #
+ </details>
 
  ### Credits
  [Peter Mathijssen](https://community.kodular.io/u/peter/summary) for the logo. Many thanks!
