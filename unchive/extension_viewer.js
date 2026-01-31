@@ -43,33 +43,40 @@ export class ExtensionViewer {
         const lines = [];
         const safeName = info.name.replace(/[^a-zA-Z0-9]/g, '_');
 
-        // Header
+        // Header - professional centered design
         lines.push(`<div align="center">`);
-        lines.push(`<h1><kbd>🧩 ${info.name}</kbd></h1>`);
-        lines.push(`${info.description}<br>`);
+        lines.push(``);
+        lines.push(`# 🧩 ${info.name}`);
+        lines.push(``);
+        lines.push(`**An extension for MIT App Inventor 2**`);
+        lines.push(``);
+        if (info.description) {
+            lines.push(`> ${this.cleanDescription(info.description)}`);
+            lines.push(``);
+        }
         lines.push(`</div>`);
         lines.push('');
 
-        // Metadata
+        // Specifications - professional inline format
         lines.push('## 📝 Specifications');
-        lines.push(`| Property | Value |`);
-        lines.push(`| --- | --- |`);
+        lines.push('');
         lines.push(`| 📦 Package | \`${info.type}\` |`);
-        lines.push(`| ⚙️ Version | ${info.versionName} |`);
+        lines.push(`| :--- | :--- |`);
+        lines.push(`| ⚙️ Version | \`${info.versionName}\` |`);
         if (info.author) lines.push(`| 👤 Author | ${info.author} |`);
-        lines.push(`| 📅 Date Built | ${info.dateBuilt ? info.dateBuilt.split('T')[0] : new Date().toISOString().split('T')[0]} |`);
+        if (info.minSdk) lines.push(`| 📱 Min API | ${info.minSdk} |`);
+        lines.push(`| 📅 Updated | ${info.dateBuilt ? info.dateBuilt.split('T')[0] : new Date().toISOString().split('T')[0]} |`);
         lines.push('');
 
         // Events
         if (info.events.length > 0) {
-            lines.push(`## <kbd>🎯 Events:</kbd>`);
-            lines.push(`**${info.name}** has total **${info.events.length}** events.`);
+            lines.push(`## <kbd>Events:</kbd>`);
+            lines.push(`**${info.name}** has total ${info.events.length} events.`);
             lines.push('');
 
-            for (const event of info.events) {
-                lines.push(`---`);
-                lines.push(`### 🟡 ${event.name}`);
-                if (event.description) lines.push(`> ${this.cleanDescription(event.description)}`);
+            info.events.forEach((event, index) => {
+                lines.push(`### ${index + 1}. ${event.name}`);
+                if (event.description) lines.push(`${this.cleanDescription(event.description)}`);
                 lines.push('');
 
                 if (includeImages) {
@@ -80,23 +87,22 @@ export class ExtensionViewer {
                 const params = event.params || [];
                 if (params.length > 0) {
                     lines.push('| Parameter | Type |');
-                    lines.push('| --- | --- |');
-                    for (const p of params) lines.push(`| \`${p.name}\` | \`${p.type || 'any'}\` |`);
+                    lines.push('| - | - |');
+                    for (const p of params) lines.push(`| ${p.name} | ${p.type || 'any'} |`);
                     lines.push('');
                 }
-            }
+            });
         }
 
         // Methods
         if (info.methods.length > 0) {
-            lines.push(`## <kbd>⚡ Methods:</kbd>`);
-            lines.push(`**${info.name}** has total **${info.methods.length}** methods.`);
+            lines.push(`## <kbd>Methods:</kbd>`);
+            lines.push(`**${info.name}** has total ${info.methods.length} methods.`);
             lines.push('');
 
-            for (const method of info.methods) {
-                lines.push(`---`);
-                lines.push(`### 🟣 ${method.name}`);
-                if (method.description) lines.push(`> ${this.cleanDescription(method.description)}`);
+            info.methods.forEach((method, index) => {
+                lines.push(`### ${index + 1}. ${method.name}`);
+                if (method.description) lines.push(`${this.cleanDescription(method.description)}`);
                 lines.push('');
 
                 if (includeImages) {
@@ -107,28 +113,27 @@ export class ExtensionViewer {
                 const params = method.params || [];
                 if (params.length > 0) {
                     lines.push('| Parameter | Type |');
-                    lines.push('| --- | --- |');
-                    for (const p of params) lines.push(`| \`${p.name}\` | \`${p.type || 'any'}\` |`);
+                    lines.push('| - | - |');
+                    for (const p of params) lines.push(`| ${p.name} | ${p.type || 'any'} |`);
                     lines.push('');
                 }
 
                 if (method.returnType && method.returnType !== 'void') {
-                    lines.push(`**↩️ Returns:** \`${method.returnType}\``);
+                    lines.push(`* Returns: \`${method.returnType}\``);
                     lines.push('');
                 }
-            }
+            });
         }
 
-        // Block Properties (Designer Properties with setters/getters)
+        // Setters (Block Properties)
         if (info.blockProperties.length > 0) {
-            lines.push(`## <kbd>🎨 Block Properties:</kbd>`);
-            lines.push(`**${info.name}** has total **${info.blockProperties.length}** block properties.`);
+            lines.push(`## <kbd>Setters:</kbd>`);
+            lines.push(`**${info.name}** has total ${info.blockProperties.length} setter properties.`);
             lines.push('');
 
-            for (const prop of info.blockProperties) {
-                lines.push(`---`);
-                lines.push(`### 🟢 ${prop.name}`);
-                if (prop.description) lines.push(`> ${this.cleanDescription(prop.description)}`);
+            info.blockProperties.forEach((prop, index) => {
+                lines.push(`### ${index + 1}. ${prop.name}`);
+                if (prop.description) lines.push(`${this.cleanDescription(prop.description)}`);
                 lines.push('');
 
                 if (includeImages) {
@@ -141,51 +146,93 @@ export class ExtensionViewer {
                     lines.push('');
                 }
 
-                lines.push(`| Property | Value |`);
-                lines.push(`| --- | --- |`);
-                lines.push(`| Type | \`${prop.type || 'any'}\` |`);
-                lines.push(`| Access | \`${prop.rw || 'read-write'}\` |`);
-                if (prop.category) lines.push(`| Category | \`${prop.category}\` |`);
-                lines.push('');
+                // Input type
+                if (prop.type) {
+                    lines.push(`* Input type: \`${prop.type}\``);
+                }
 
-                // Option list helper
-                if (prop.helper && prop.helper.type === 'OPTION_LIST' && prop.helper.data) {
-                    const options = prop.helper.data.options || [];
-                    if (options.length > 0) {
-                        lines.push(`**Available Options:**`);
-                        lines.push('| Option | Value | Description |');
-                        lines.push('| --- | --- | --- |');
-                        for (const opt of options) {
-                            lines.push(`| ${opt.name} | \`${opt.value}\` | ${opt.description || '-'} |`);
-                        }
-                        lines.push('');
+                // Helper logic
+                if (prop.helper) {
+                    const helperData = prop.helper.data;
+                    let helperTypeName = "";
+
+                    // Determine Type Name
+                    if (helperData && helperData.tag) {
+                        helperTypeName = helperData.tag;
+                    } else if (helperData && helperData.key) {
+                        helperTypeName = helperData.key;
+                    } else if (prop.helper.type && prop.helper.type !== "OPTION_LIST") {
+                        helperTypeName = prop.helper.type;
+                    }
+
+                    if (helperTypeName) {
+                        lines.push(`* Helper type: \`${helperTypeName}\``);
+                    }
+
+                    // Determine Enums
+                    let enums = [];
+                    if (helperData && helperData.options && Array.isArray(helperData.options)) {
+                        enums = helperData.options.map(opt => opt.name);
+                    } else if (helperData && Array.isArray(helperData)) {
+                        enums = helperData;
+                    } else if (helperData && helperData.keys && Array.isArray(helperData.keys)) {
+                        enums = helperData.keys;
+                    } else if (prop.helper.keys && Array.isArray(prop.helper.keys)) {
+                        enums = prop.helper.keys;
+                    }
+
+                    if (enums && enums.length > 0) {
+                        const enumString = enums.map(item => `\`${item}\``).join(', ');
+                        lines.push(`* Helper enums: ${enumString}`);
                     }
                 }
-            }
+
+                lines.push('');
+            });
         }
 
-        // Regular Properties
+        // Regular Properties (Getters)
         if (info.properties.length > 0) {
-            lines.push(`## <kbd>🔧 Properties:</kbd>`);
-            lines.push(`**${info.name}** has total **${info.properties.length}** properties.`);
+            lines.push(`## <kbd>Properties:</kbd>`);
+            lines.push(`**${info.name}** has total ${info.properties.length} properties.`);
             lines.push('');
 
-            for (const prop of info.properties) {
-                lines.push(`---`);
-                lines.push(`### 🟢 ${prop.name}`);
-                if (prop.description) lines.push(`> ${this.cleanDescription(prop.description)}`);
+            info.properties.forEach((prop, index) => {
+                lines.push(`### ${index + 1}. ${prop.name}`);
+                if (prop.description) lines.push(`${this.cleanDescription(prop.description)}`);
                 lines.push('');
-                lines.push(`| Property | Value |`);
-                lines.push(`| --- | --- |`);
-                lines.push(`| Type | \`${prop.type || 'any'}\` |`);
-                if (prop.rw) lines.push(`| Access | \`${prop.rw}\` |`);
+
+                if (prop.type) {
+                    lines.push(`* Type: \`${prop.type}\``);
+                }
+                if (prop.rw) {
+                    lines.push(`* Access: \`${prop.rw}\``);
+                }
                 lines.push('');
-            }
+            });
         }
 
-        // Footer
-        lines.push(`---`);
-        lines.push(`*Documentation generated by [ai-unchive](https://github.com/nicehorse06/ai-unchive)*`);
+        // No items message if empty
+        if (info.events.length === 0 && info.methods.length === 0 && info.blockProperties.length === 0 && info.properties.length === 0) {
+            lines.push('');
+            lines.push('> No events, methods, or properties found in this extension.');
+            lines.push('');
+        }
+
+        // Professional Footer
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+        lines.push('<div align="center">');
+        lines.push('<br>');
+        lines.push('<p>');
+        lines.push('📄 <strong>Documentation generated with</strong> <a href="https://techhamara.github.io/ai-unchive/" target="_blank">ai-unchive</a>');
+        lines.push('</p>');
+        lines.push('<p>');
+        lines.push('<sub>🛠️ Built for MIT App Inventor 2 & its distributions</sub>');
+        lines.push('</p>');
+        lines.push('</div>');
+        lines.push('');
 
         return lines.join('\n');
     }

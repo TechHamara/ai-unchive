@@ -8,6 +8,7 @@ import { AIProject } from '../unchive/ai_project.js';
 import { SummaryWriter } from '../unchive/summary_writer.js';
 import { ExtensionPage } from './extension_page.js';
 import { ExtensionDocsPage } from './extension_docs_page.js';
+import { MarkdownDocsPage } from './markdown_docs_page.js';
 
 export class Screen extends View {
     constructor() {
@@ -120,7 +121,8 @@ export class Screen extends View {
             this.mainContent.removeView(this.extensionDocsPage);
         }
 
-        this.extensionDocsPage = new ExtensionDocsPage(extensions);
+        // Use MarkdownDocsPage for simple Preview/Raw toggle documentation view
+        this.extensionDocsPage = new MarkdownDocsPage(extensions);
         this.mainContent.addView(this.extensionDocsPage);
 
         this.titleBar.title.setText(`${Messages.pageTitle} - Extensions Documentation`);
